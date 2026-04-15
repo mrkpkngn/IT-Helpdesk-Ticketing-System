@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tickets',
-    'shadcn_django',
+    'django_cotton',
 ]
 
 MIDDLEWARE = [
