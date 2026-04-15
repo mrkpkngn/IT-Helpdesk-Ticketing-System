@@ -1,0 +1,16 @@
+ {% load static %}
+ <html>
+    <head>
+        <link rel='stylesheet' href='{% static 'css/output.css' %}'>
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <title>IT Helpdesk Ticketing System{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <nav class="bg-blue-600 p-6">
+            Ticketing System
+        </nav>
+        {%block content%}
+        {%endblock%}
+    </body>
+ </html>
+ 
