@@ -1,0 +1,30 @@
+{% extends "../base.html" %}
+{% load widget_tweaks %}
+{%block title%} - Create new employee {%endblock%}
+{%block content%}
+<div id="create-employee" class="flex flex-col items-center justify-center p-6 gap-6">
+<h1 class="text-2xl font-bold">Create a new employee</h1>
+<form method="POST" action="#" class="grid grid-cols-2 grid-rows-4 justify-center items-center gap-2">
+    {% csrf_token %}
+    <div class="flex flex-col items-center justify-center w-full col-1 row-1">
+        <label for="first_name" class="text-center">First Name</label>
+        {% render_field employee_form.first_name class="flex w-full border-2 rounded-sm p-1" %}
+    </div>
+    <div class="flex flex-col items-center justify-center w-full col-2 row-1">
+        <label for="first_name" class="text-center">Last Name</label>
+        {% render_field employee_form.last_name class="flex w-full border-2 rounded-sm p-1" %}
+    </div>
+    <div class="flex flex-col items-center justify-center w-full col-span-2 row-2">
+        <label for="first_name" class="text-center">Email</label>
+        {% render_field employee_form.email class="flex w-full border-2 rounded-sm p-1" %}
+    </div>
+    <div class="flex flex-col items-center justify-center w-full col-span-2 row-3">
+        <label for="first_name" class="text-center">Department</label>
+        {% render_field employee_form.department class="flex w-full border-2 rounded-sm p-1" placeholder="Please select" %}
+    </div>
+    <div class="flex flex-col items-center justify-center w-full col-span-2 row-4">
+        <input type="submit" value="Submit" class="bg-blue-500 px-5 py-2 rounded-md text-white font-bold hover:bg-blue-300 hover:cursor-pointer"/>
+    </div>
+</form>
+</div>
+{%endblock%}
