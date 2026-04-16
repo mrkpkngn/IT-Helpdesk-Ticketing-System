@@ -1,13 +1,19 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django import forms
+from .models import Ticket
 from .forms import EmployeeForm, RegisterEquipmentForm, EquipmentForm, CategoryForm, TicketForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 @login_required
 def dashboard(request):
-    return render(request, "dashboard.html")
+    if request.user.department and request.user.department.name == 'IT Support':
+        tickets = Ticket.objects.all().order_by('date_created')
+    else:
+        tickets = Ticket.objects.filter(author=request.user).order_by('date_created')
+    
+    return render(request, "dashboard.html", {"tickets": tickets})
 
 def new_employee(request):
     if request.method == "POST":

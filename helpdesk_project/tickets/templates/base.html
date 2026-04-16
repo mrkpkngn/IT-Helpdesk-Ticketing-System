@@ -3,6 +3,7 @@
     <head>
         <link rel='stylesheet' href='{% static 'css/output.css' %}'>
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="https://unpkg.com/lucide@latest"></script>
         <title>IT Helpdesk Ticketing System{% block title %}{% endblock %}</title>
     </head>
     <body>
@@ -83,6 +84,9 @@
             {% endblock %}
             
         </main>
+        <script>
+            lucide.createIcons();
+        </script>
     </body>
  </html>
  

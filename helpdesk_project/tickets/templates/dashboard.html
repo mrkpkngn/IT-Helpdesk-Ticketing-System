@@ -1,4 +1,46 @@
 {% extends "base.html" %}
-{%block content%}
-try test index
-{%endblock%}
+
+{% block content %}
+<div class="max-w-6xl mx-auto mt-10">
+    <h1 class="text-3xl font-bold mb-6">Ticket Dashboard</h1>
+    
+    <div class="bg-white shadow-md rounded-lg overflow-hidden border border-slate-200">
+        <table class="w-full text-left border-collapse">
+            <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                    <th class="p-4 font-semibold text-slate-700">Title</th>
+                    <th class="p-4 font-semibold text-slate-700">Author</th>
+                    <th class="p-4 font-semibold text-slate-700">Category</th>
+                    <th class="p-4 font-semibold text-slate-700">Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                    <td class="p-4 font-medium">
+                        <p>{{ ticket.title }}</p>
+                    </td>
+                    <td class="p-4 text-slate-600">{{ ticket.author.first_name }} {{ ticket.author.last_name }}</td>
+                    <td class="p-4 text-slate-600">{{ ticket.category }}</td>
+                    <td class="p-4">
+                        {% if ticket.is_resolved %}
+                            <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold uppercase">Resolved</span>
+                        {% else %}
+                            <span class="bg-amber-100 text-amber-700 px-2 py-1 rounded text-xs font-bold uppercase">Pending</span>
+                        {% endif %}
+                    </td>
+                    <td class="p-4 text-sm"><a href="#"><i data-lucide="info" class="w-4 h-4 text-blue-500 hover:cursor-pointer"></a></i></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="p-8 text-center text-slate-500 italic">
+                        No tickets found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
