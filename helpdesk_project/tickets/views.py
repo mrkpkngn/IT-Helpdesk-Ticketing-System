@@ -1,14 +1,11 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django import forms
-from .forms import EmployeeForm
+from .forms import EmployeeForm, RegisterEquipmentForm
 
 # Create your views here.
 def index(request):
     return render(request, "index.html")
-
-def success(request, success_message):
-    return render(request, "success.html", {"success_message" : success_message})
 
 def new_employee(request):
     if request.method == "POST":
@@ -22,3 +19,18 @@ def new_employee(request):
     
     return render(request, "tickets/new-employee.html", {"employee_form" : employee_form})
     
+def register_equipment(request):
+    if request.method == "POST":
+        register_equipment_form = RegisterEquipmentForm(request.POST)
+        if register_equipment_form.is_valid():
+            equipment = register_equipment_form.cleaned_data["equipments"]
+            employee = register_equipment_form.cleaned_data["employees"]
+            equipment.owner = employee
+            equipment.save()
+            messages.success(request, 'Equipment was successfully assigned to employee.')
+            return redirect('index')
+    
+    else:
+        register_equipment_form = RegisterEquipmentForm()
+        return render(request, "tickets/register-equipment.html", {"register_equipment_form" : register_equipment_form})
+        

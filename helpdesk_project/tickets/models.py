@@ -30,7 +30,7 @@ class Equipment(models.Model):
         verbose_name = "Equipment"
         verbose_name_plural = "Equipment"
     def __str__(self):
-        return self.name
+        return f"{self.equipment_type} ({self.asset_tag})"
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -38,7 +38,8 @@ class Category(models.Model):
         verbose_name = "Category"
         verbose_name_plural = "Categories"
     def __str__(self):
-        return f"{self.equipment_type} ({self.asset_tag})"
+         return self.name
+        
     
 class Ticket(models.Model):
     title = models.CharField(max_length=200)
