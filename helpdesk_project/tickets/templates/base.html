@@ -6,8 +6,23 @@
         <title>IT Helpdesk Ticketing System{% block title %}{% endblock %}</title>
     </head>
     <body>
-        <nav class="bg-blue-600 p-6">
-            Ticketing System
+        <nav class="bg-blue-600 p-6 flex justify-between items-center">
+            <div class="flex items-center justify-center">
+                <p class="text-white font-bold pr-12">Ticketing System</p>
+                {% if user.department.name == 'IT Support' %}
+                <div class="flex justify-evenly items-center gap-6">
+                    <a href="{% url 'dashboard' %}" class="text-white font-semibold">Tickets</a>
+                    <a href="{% url 'new_employee' %}" class="text-white font-semibold">Employees</a>
+                    <a href="{% url 'register_equipment' %}" class="text-white font-semibold">Equipments</a>
+                </div>
+                {%endif%}
+            </div>
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md text-white hover:cursor-pointer">Logout</button>
+                </form>
+            {%endif%}
         </nav>
         <main class="container mx-auto p-8 relative">
             

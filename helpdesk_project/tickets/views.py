@@ -2,10 +2,12 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django import forms
 from .forms import EmployeeForm, RegisterEquipmentForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-def index(request):
-    return render(request, "index.html")
+@login_required
+def dashboard(request):
+    return render(request, "dashboard.html")
 
 def new_employee(request):
     if request.method == "POST":

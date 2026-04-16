@@ -1,11 +1,13 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from .models import Employee, Equipment
 
 
-class EmployeeForm(forms.ModelForm):
-    class Meta:
+class EmployeeForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
         model = Employee
-        exclude=[]
+        fields = UserCreationForm.Meta.fields + ('first_name', 'last_name', 'email', 'department')
+        
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['department'].empty_label = "Please select a department"

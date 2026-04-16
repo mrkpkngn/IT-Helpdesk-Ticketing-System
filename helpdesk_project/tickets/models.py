@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Department(models.Model):
@@ -11,11 +12,8 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
-class Employee(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=75)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+class Employee(AbstractUser):
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
     class Meta:
         verbose_name = "Employee"
         verbose_name_plural = "Employees"
