@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django import forms
-from .forms import EmployeeForm, RegisterEquipmentForm
+from .forms import EmployeeForm, RegisterEquipmentForm, EquipmentForm, CategoryForm, TicketForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -15,11 +15,50 @@ def new_employee(request):
         if employee_form.is_valid():
             employee_form.save()
             messages.success(request, 'Employee has been successfully added.')
-            return redirect('index')
+            return redirect('dashboard')
     else:
         employee_form = EmployeeForm()
     
     return render(request, "tickets/new-employee.html", {"employee_form" : employee_form})
+
+def new_equipment(request):
+    if request.method == "POST":
+        equipment_form = EquipmentForm(request.POST)
+        if equipment_form.is_valid():
+            equipment_form.save()
+            messages.success(request, 'Equipment has been successfully added.')
+            return redirect('dashboard')
+    else:
+        equipment_form = EquipmentForm()
+    
+    return render(request, "tickets/new-equipment.html", {"equipment_form" : equipment_form})
+
+def new_category(request):
+    if request.method == "POST":
+        category_form = CategoryForm(request.POST)
+        if category_form.is_valid():
+            category_form.save()
+            messages.success(request, 'Category has been successfully added.')
+            return redirect('dashboard')
+    else:
+        category_form = CategoryForm()
+    
+    return render(request, "tickets/new-category.html", {"category_form" : category_form})
+
+@login_required
+def new_ticket(request):
+    if request.method == "POST":
+        ticket_form = TicketForm(request.POST)
+        if ticket_form.is_valid():
+            ticket = ticket_form.save(commit=False)
+            ticket.author = request.user 
+            ticket.save()
+            
+            return redirect('dashboard')
+    else:
+        ticket_form = TicketForm()
+        
+    return render(request, 'tickets/new-ticket.html', {'ticket_form': ticket_form})
     
 def register_equipment(request):
     if request.method == "POST":
@@ -30,7 +69,7 @@ def register_equipment(request):
             equipment.owner = employee
             equipment.save()
             messages.success(request, 'Equipment was successfully assigned to employee.')
-            return redirect('index')
+            return redirect('dashboard')
     
     else:
         register_equipment_form = RegisterEquipmentForm()

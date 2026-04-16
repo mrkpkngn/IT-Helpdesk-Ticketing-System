@@ -1,0 +1,32 @@
+{% extends "../base.html" %}
+{% load widget_tweaks %}
+{% block title %} - New ticket {% endblock %}
+
+{% block content %}
+<div id="new-ticket" class="flex flex-col items-center justify-center p-6">
+    <h1 class="text-2xl font-bold mb-6">Create a New Ticket</h1>
+    
+    <form method="POST" class="flex flex-col gap-4 w-full max-w-md">
+        {% csrf_token %}
+        
+        <div class="flex flex-col">
+            <label for="{{ ticket_form.title.id_for_label }}" class="font-medium text-slate-700">Title</label>
+            {% render_field ticket_form.title class="border-2 rounded-md p-2 focus:border-blue-500 outline-none" placeholder="Short summary of the issue" %}
+        </div>
+
+        <div class="flex flex-col">
+            <label for="{{ ticket_form.category.id_for_label }}" class="font-medium text-slate-700">Category</label>
+            {% render_field ticket_form.category class="border-2 rounded-md p-2 focus:border-blue-500 outline-none" %}
+        </div>
+
+        <div class="flex flex-col">
+            <label for="{{ ticket_form.description.id_for_label }}" class="font-medium text-slate-700">Description</label>
+            {% render_field ticket_form.description class="border-2 rounded-md p-2 focus:border-blue-500 outline-none h-32" placeholder="Provide more details..." %}
+        </div>
+
+        <div class="mt-2">
+            <input type="submit" value="Submit Ticket" class="w-full bg-blue-600 px-5 py-3 rounded-md text-white font-bold hover:bg-blue-700 cursor-pointer transition-colors"/>
+        </div>
+    </form>
+</div>
+{% endblock %}

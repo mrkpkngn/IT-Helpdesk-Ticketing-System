@@ -22,6 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard', views.dashboard, name='dashboard'),
     path('new-employee', views.new_employee, name="new_employee"),
+    path('new-equipment', views.new_equipment, name="new_equipment"),
+    path('new-category', views.new_category, name="new_category"),
+    path('new-ticket', views.new_ticket, name="new_ticket"),
     path('register-equipment', views.register_equipment, name="register_equipment"),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

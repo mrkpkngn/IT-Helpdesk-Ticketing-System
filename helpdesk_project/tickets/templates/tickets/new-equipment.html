@@ -1,0 +1,22 @@
+{% extends "../base.html" %}
+{% load widget_tweaks %}
+{%block title%} - New equipment {%endblock%}
+{%block content%}
+<div id="new-equipment" class="flex flex-col items-center justify-center p-6 gap-6">
+<h1 class="text-2xl font-bold">New equipment</h1>
+<form method="POST" action="#" class="grid grid-cols-1 grid-rows-3 justify-center items-center gap-2">
+    {% csrf_token %}
+    <div class="flex flex-col items-center justify-center w-full col-1 row-1">
+        <label for="first_name" class="text-center">Asset Tag</label>
+        {% render_field equipment_form.asset_tag class="flex w-full border-2 rounded-sm p-1" placeholder="LT-2024-001"%}
+    </div>
+    <div class="flex flex-col items-center justify-center w-full col-1 row-2">
+        <label for="first_name" class="text-center">Equipment Type</label>
+        {% render_field equipment_form.equipment_type class="flex w-full border-2 rounded-sm p-1" placeholder="Laptop" %}
+    </div>
+    <div class="flex flex-col items-center justify-center w-full col-1 row-3">
+        <input type="submit" value="Submit" class="bg-blue-500 px-5 py-2 rounded-md text-white font-bold hover:bg-blue-300 hover:cursor-pointer"/>
+    </div>
+</form>
+</div>
+{%endblock%}
