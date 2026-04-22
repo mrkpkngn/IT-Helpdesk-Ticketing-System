@@ -3,34 +3,28 @@
 
 {% block content %}
 <div class="flex flex-col items-center justify-center min-h-[60vh] p-6">
-    <div class="w-full max-w-md p-8 space-y-6 bg-white border border-slate-200 rounded-lg shadow-sm">
-        <h1 class="text-2xl font-bold text-center">IT Helpdesk Login</h1>
-        
-        <form method="POST" action="{% url 'login' %}" class="space-y-4">
+    <div class="card w-full md:max-w-[30vw]">
+        <header>
+            <h2>Login to your account</h2>
+            <p>Enter your details below to login to your account</p>
+        </header>
+        <section>
+            <form class="form grid gap-6" method="POST">
             {% csrf_token %}
-            
-            {% if form.errors %}
-                <div class="p-3 text-sm text-red-700 bg-red-100 border border-red-400 rounded">
-                    Your username and password didn't match. Please try again.
+            <div class="grid gap-2">
+                <label for="label-username">Username</label>
+                <input type="text" name="username" id="username" value="{{ form.username.value|default:'' }}">
+            </div>
+            <div class="grid gap-2">
+                <div class="flex items-center gap-2">
+                <label for="label-password">Password</label>
+                <a href="#" class="ml-auto inline-block text-sm underline-offset-4 hover:underline">Forgot your password?</a>
                 </div>
-            {% endif %}
-
-            <div class="space-y-2">
-                <label for="{{ form.username.id_for_label }}" class="font-medium">Username</label>
-                {% render_field form.username class="flex w-full p-2 border-2 rounded-sm border-slate-300" %}
+                <input type="password" name="password" id="password" value="{{ form.password.value|default:'' }}">
             </div>
-            
-            <div class="space-y-2">
-                <label for="{{ form.password.id_for_label }}" class="font-medium">Password</label>
-                {% render_field form.password class="flex w-full p-2 border-2 rounded-sm border-slate-300" %}
-            </div>
-            
-            <button type="submit" class="w-full py-2 font-bold text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600 hover:cursor-pointer">
-                Log In
-            </button>
-            
-            <input type="hidden" name="next" value="{{ next }}">
-        </form>
+            <input type="submit" class="btn w-full bg-blue-500" value="Submit" />
+            </form>
+        </section>
     </div>
 </div>
 {% endblock %}

@@ -20,11 +20,14 @@ from tickets import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('dashboard', views.dashboard, name='dashboard'),
-    path('new-employee', views.new_employee, name="new_employee"),
-    path('new-equipment', views.new_equipment, name="new_equipment"),
-    path('new-category', views.new_category, name="new_category"),
-    path('new-ticket', views.new_ticket, name="new_ticket"),
-    path('register-equipment', views.register_equipment, name="register_equipment"),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('new-employee/', views.new_employee, name="new_employee"),
+    path('new-equipment.', views.new_equipment, name="new_equipment"),
+    path('new-category/', views.new_category, name="new_category"),
+    path('new-ticket/', views.new_ticket, name="new_ticket"),
+    path('register-equipment/', views.register_equipment, name="register_equipment"),
+    path('tickets/<int:id>/', views.ticket_details, name="ticket_details"),
+    path('tickets/<int:id>/ticket-status/', views.ticket_status, name="ticket_status"),
+    path('tickets/<int:id>/add-comment/', views.add_comment, name="add_comment"),
+    path('accounts/', include('django.contrib.auth.urls')), 
 ]

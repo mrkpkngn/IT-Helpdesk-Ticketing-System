@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Employee, Equipment, Category, Ticket
+from .models import Employee, Equipment, Category, Ticket, TicketComment
 
 
 class EmployeeForm(UserCreationForm):
@@ -29,6 +29,11 @@ class TicketForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['category'].empty_label = "Please select a category"
+
+class TicketCommentForm(forms.ModelForm):
+    class Meta:
+        model = TicketComment
+        exclude = ['ticket', 'author', 'date_created']
         
 class RegisterEquipmentForm(forms.Form):
     equipments = forms.ModelChoiceField(
