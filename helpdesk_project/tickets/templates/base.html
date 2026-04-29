@@ -1,8 +1,11 @@
  {% load static %}
  <html>
     <head>
-        <link rel='stylesheet' href='{% static 'css/output.css' %}'>
+        <link rel='stylesheet' href='{% static 'src/output.css' %}'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.11/dist/js/basecoat.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.11/dist/js/select.min.js" defer></script>
         <script src="https://unpkg.com/lucide@latest"></script>
         <title>IT Helpdesk Ticketing System{% block title %}{% endblock %}</title>
     </head>

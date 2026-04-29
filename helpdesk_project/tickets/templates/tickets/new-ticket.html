@@ -9,23 +9,52 @@
     <form method="POST" class="flex flex-col gap-4 w-full max-w-md">
         {% csrf_token %}
         
-        <div class="flex flex-col">
-            <label for="{{ ticket_form.title.id_for_label }}" class="font-medium text-slate-700">Title</label>
-            {% render_field ticket_form.title class="border-2 rounded-md p-2 focus:border-blue-500 outline-none" placeholder="Short summary of the issue" %}
+        <div class="flex flex-col gap-2">
+            <label for="{{ ticket_form.title.id_for_label }}" class="label">Title</label>
+            <input class="input" id="title-input" type="text" placeholder="Short summary of the issue..." name="title" id="title" value="{{ ticket_form.title.value|default:'' }}">
         </div>
 
-        <div class="flex flex-col">
-            <label for="{{ ticket_form.category.id_for_label }}" class="font-medium text-slate-700">Category</label>
-            {% render_field ticket_form.category class="border-2 rounded-md p-2 focus:border-blue-500 outline-none" %}
+        <div class="flex flex-col gap-2">
+            <label for="{{ ticket_form.category.id_for_label }}" class="label">Category</label>
+            
+            <div id="select-category" class="select">
+                <button type="button" class="btn-outline w-full justify-between" id="category-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="category-listbox">
+                    <span class="truncate">Select category...</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-down text-muted-foreground opacity-50 shrink-0">
+                        <path d="m7 15 5 5 5-5" />
+                        <path d="m7 9 5-5 5 5" />
+                    </svg>
+                </button>
+
+                <div id="category-popover" data-popover aria-hidden="true">
+                    <header>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.3-4.3" />
+                        </svg>
+                        <input type="text" placeholder="Search categories..." autocomplete="off" role="combobox" aria-expanded="false" aria-controls="category-listbox" />
+                    </header>
+
+                    <div role="listbox" id="category-listbox" aria-orientation="vertical" data-empty="No category found.">
+                        {% for value, label in ticket_form.category.field.choices %}
+                            {% if value %}
+                                <div role="option" data-value="{{ value }}">{{ label }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <input type="hidden" name="{{ ticket_form.category.html_name }}" id="{{ ticket_form.category.id_for_label }}" value="{{ ticket_form.category.value|default:'' }}" />
+            </div>
         </div>
 
-        <div class="flex flex-col">
-            <label for="{{ ticket_form.description.id_for_label }}" class="font-medium text-slate-700">Description</label>
-            {% render_field ticket_form.description class="border-2 rounded-md p-2 focus:border-blue-500 outline-none h-32" placeholder="Provide more details..." %}
+        <div class="flex flex-col gap-2">
+            <label for="{{ ticket_form.description.id_for_label }}" class="label">Description</label>
+            <textarea class="textarea" placeholder="Type your message here" name="description" id="desctiption" value="{{ ticket_form.description.value|default:'' }}"></textarea>
         </div>
 
         <div class="mt-2">
-            <input type="submit" value="Submit Ticket" class="w-full bg-blue-600 px-5 py-3 rounded-md text-white font-bold hover:bg-blue-700 cursor-pointer transition-colors"/>
+            <input type="submit" value="Submit Ticket" class="btn w-full bg-blue-500"/>
         </div>
     </form>
 </div>
