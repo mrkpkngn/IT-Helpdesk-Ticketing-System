@@ -37,11 +37,23 @@ class TicketCommentForm(forms.ModelForm):
         
 class RegisterEquipmentForm(forms.Form):
     equipments = forms.ModelChoiceField(
-        queryset= Equipment.objects.filter(owner__isnull=True),
+        queryset=Equipment.objects.none(),
         empty_label="Please select an unassigned equipment."
     )
     
     employees = forms.ModelChoiceField(
-        queryset= Employee.objects.all(),
+        queryset=Employee.objects.none(),
         empty_label="Please select an employee."
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        # Filter equipments without owner
+        self.fields['equipments'].queryset = Equipment.objects.filter(owner__isnull=True)
+        
+        # Filter sudo users
+        self.fields['employees'].queryset = Employee.objects.filter(
+            is_staff=False, 
+            is_superuser=False
+        ).order_by('first_name')

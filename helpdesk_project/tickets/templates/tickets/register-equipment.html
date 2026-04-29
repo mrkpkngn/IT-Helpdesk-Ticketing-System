@@ -4,18 +4,75 @@
 {%block content%}
 <div id="register-equipment" class="flex flex-col items-center justify-center p-6 gap-6">
 <h1 class="text-2xl font-bold">Register Equipment</h1>
-<form method="POST" action="#" class="grid grid-cols-1 grid-rows-3 justify-center items-center gap-2">
+<form method="POST" action="#" class="grid grid-cols-1 grid-rows-3 justify-center items-center gap-2 w-full max-w-md">
     {% csrf_token %}
-    <div class="flex flex-col items-center justify-center w-full col-1 row-1">
-        <label for="first_name" class="text-center">Equipment</label>
-        {% render_field register_equipment_form.equipments class="flex w-full border-2 rounded-sm p-1" %}
-    </div>
-    <div class="flex flex-col items-center justify-center w-full col-1 row-2">
-        <label for="first_name" class="text-center">Employee</label>
-        {% render_field register_equipment_form.employees class="flex w-full border-2 rounded-sm p-1" %}
-    </div>
+        <div class="flex flex-col gap-2">
+            <label for="{{ register_equipment_form.equipments.id_for_label }}" class="label">Equipment</label>
+            <div id="select-category" class="select">
+                <button type="button" class="btn-outline w-full justify-between" id="category-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="category-listbox">
+                    <span class="truncate">Please select an unassigned equipment.</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-down text-muted-foreground opacity-50 shrink-0">
+                        <path d="m7 15 5 5 5-5" />
+                        <path d="m7 9 5-5 5 5" />
+                    </svg>
+                </button>
+
+                <div id="category-popover" data-popover aria-hidden="true">
+                    <header>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.3-4.3" />
+                        </svg>
+                        <input type="text" placeholder="Search equipment" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="category-listbox" />
+                    </header>
+
+                    <div role="listbox" id="category-listbox" aria-orientation="vertical" data-empty="No equipment found.">
+                        {% for value, label in register_equipment_form.equipments.field.choices %}
+                            {% if value %}
+                                <div role="option" data-value="{{ value }}">{{ label }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <input type="hidden" name="{{ register_equipment_form.equipments.html_name }}" id="{{ register_equipment_form.equipments.id_for_label }}" value="{{ register_equipment_form.equipments.value|default:'' }}" />
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <label for="{{ register_equipment_form.employees.id_for_label }}" class="label">Employee</label>
+            <div id="select-category" class="select">
+                <button type="button" class="btn-outline w-full justify-between" id="category-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="category-listbox">
+                    <span class="truncate">Please select an employee.</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-down text-muted-foreground opacity-50 shrink-0">
+                        <path d="m7 15 5 5 5-5" />
+                        <path d="m7 9 5-5 5 5" />
+                    </svg>
+                </button>
+
+                <div id="category-popover" data-popover aria-hidden="true">
+                    <header>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.3-4.3" />
+                        </svg>
+                        <input type="text" placeholder="Search employee" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="category-listbox" />
+                    </header>
+
+                    <div role="listbox" id="category-listbox" aria-orientation="vertical" data-empty="No employee found.">
+                        {% for value, label in register_equipment_form.employees.field.choices %}
+                            {% if value %}
+                                <div role="option" data-value="{{ value }}">{{ label }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <input type="hidden" name="{{ register_equipment_form.employees.html_name }}" id="{{ register_equipment_form.employees.id_for_label }}" value="{{ register_equipment_form.employees.value|default:'' }}" />
+            </div>
+        </div>
     <div class="flex flex-col items-center justify-center w-full col-1 row-3">
-        <input type="submit" value="Submit" class="bg-blue-500 px-5 py-2 rounded-md text-white font-bold hover:bg-blue-300 hover:cursor-pointer"/>
+        <input type="submit" value="Submit" class="btn w-full bg-blue-500"/>
     </div>
 </form>
 </div>

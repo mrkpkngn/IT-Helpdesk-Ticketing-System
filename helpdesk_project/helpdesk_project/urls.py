@@ -20,6 +20,7 @@ from tickets import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.dashboard, name='index'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('new-employee/', views.new_employee, name="new_employee"),
     path('new-equipment.', views.new_equipment, name="new_equipment"),

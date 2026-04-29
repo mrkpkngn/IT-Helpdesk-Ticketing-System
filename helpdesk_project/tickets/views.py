@@ -79,6 +79,7 @@ def ticket_details(request, id):
     else:
         return redirect('dashboard')
     
+@login_required
 def register_equipment(request):
     if request.method == "POST":
         register_equipment_form = RegisterEquipmentForm(request.POST)
