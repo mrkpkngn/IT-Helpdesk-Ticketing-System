@@ -20,7 +20,7 @@ from tickets import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.dashboard, name='index'),
+    path('', views.index, name='index'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('new-employee/', views.new_employee, name="new_employee"),
     path('new-equipment.', views.new_equipment, name="new_equipment"),
@@ -31,4 +31,7 @@ urlpatterns = [
     path('tickets/<int:id>/ticket-status/', views.ticket_status, name="ticket_status"),
     path('tickets/<int:id>/add-comment/', views.add_comment, name="add_comment"),
     path('accounts/', include('django.contrib.auth.urls')), 
+    path('inventory/', views.inventory, name="inventory"),
+    path('employees/', views.employee_list, name="employee_list"),
+    path('employees/<int:id>', views.employee_details, name="employee_details"),
 ]

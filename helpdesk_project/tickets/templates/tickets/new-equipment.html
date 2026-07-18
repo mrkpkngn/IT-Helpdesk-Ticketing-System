@@ -8,11 +8,11 @@
     {% csrf_token %}
     <div class="flex flex-col gap-2 justify-center w-full col-1 row-1">
         <label for="asset_tag" class="label">Asset Tag</label>
-        <input class="input" id="name-input" type="text" placeholder="LT-2024-001" name="asset_tag" id="asset_tag" value="{{ equipment_form.asset_tag.value|default:'' }}">
+        <input class="input bg-white" id="name-input" type="text" placeholder="LT-2024-001" name="asset_tag" id="asset_tag" value="{{ equipment_form.asset_tag.value|default:'' }}">
     </div>
     <div class="flex flex-col gap-2 justify-center w-full col-1 row-2">
-        <label for="first_name" class="label">Equipment Type</label>
-        <input class="input" id="name-input" type="text" placeholder="Laptop" name="type" id="type" value="{{ equipment_form.equipment_type.value|default:'' }}">
+        <label for="equipment_type" class="label">Equipment Type</label>
+        <input class="input bg-white" id="equipment_type" type="text" placeholder="Laptop" name="equipment_type" id="equipment_type" value="{{ equipment_form.equipment_type.value|default:'' }}">
     </div>
     <div class="flex flex-col items-center justify-center w-full col-1 row-3">
         <input type="submit" value="Submit" class="btn w-full bg-blue-500"/>

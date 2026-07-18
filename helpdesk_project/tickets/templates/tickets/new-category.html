@@ -8,7 +8,7 @@
     {% csrf_token %}
     <div class="flex flex-col w-full col-1 row-1 gap-2">
         <label for="Name" class="text-left label">Name</label>
-        <input class="input" id="name-input" type="text" placeholder="Hardware, Software" name="name" id="name" value="{{ category_form.name.value|default:'' }}">
+        <input class="input bg-white" id="name-input" type="text" placeholder="Hardware, Software" name="name" id="name" value="{{ category_form.name.value|default:'' }}">
     </div>
     <div class="flex flex-col items-center justify-center w-full col-1 row-2">
         <input type="submit" value="Submit" class="btn w-full bg-blue-500"/>

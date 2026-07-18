@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mx-16 my-12">
+  <a
+    href="{% url 'employee_list' %}"
+    class="flex items-center gap-2 text-slate-500 hover:text-blue-600 mb-6 transition-colors max-w-4xl"
+  >
+    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Employee Dashboard
+  </a>
+
+  <div class="grid grid-cols-3 grid-rows-[auto_1fr] items-start justify-center gap-3">
+    
+    <h2 class="row-start-1 col-span-1 text-lg font-medium pb-2">Employee Details</h2>
+    <h2 class="row-start-1 col-span-2 text-lg font-medium pb-2">Assigned Equipment</h2>
+
+    <div class="row-start-2 flex items-start justify-center">
+      <div class="w-full border-collapse border border-slate-200 rounded-lg overflow-hidden max-w-2xl bg-white">
+        <div class="grid grid-cols-3 border-b border-slate-200">
+          <div class="bg-slate-50 p-3 font-semibold text-slate-700 border-r border-slate-200">
+            First Name
+          </div>
+          <div class="p-3 col-span-2">{{ employee.first_name }}</div>
+        </div>
+
+        <div class="grid grid-cols-3 border-b border-slate-200">
+          <div class="bg-slate-50 p-3 font-semibold text-slate-700 border-r border-slate-200">
+            Last Name
+          </div>
+          <div class="p-3 col-span-2">{{ employee.last_name }}</div>
+        </div>
+
+        <div class="grid grid-cols-3 border-b border-slate-200">
+          <div class="bg-slate-50 p-3 font-semibold text-slate-700 border-r border-slate-200">
+            Department
+          </div>
+          <div class="p-3 col-span-2">{{employee.department.name}}</div>
+        </div>
+
+        <div class="grid grid-cols-3 border-b border-slate-200">
+          <div class="bg-slate-50 p-3 font-semibold text-slate-700 border-r border-slate-200">
+            Office
+          </div>
+          <div class="p-3 col-span-2">{{employee.department.office}}</div>
+        </div>
+
+        <div class="grid grid-cols-3">
+          <div class="bg-slate-50 p-3 font-semibold text-slate-700 border-r border-slate-200">
+            Location
+          </div>
+          <div class="p-3 col-span-2">{{employee.department.location}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-start-2 col-span-2 bg-white border-slate-200 rounded-lg overflow-hidden border self-start">
+      <table class="w-full text-left border-collapse table">
+        <thead>
+          <tr>
+            <th class="p-3 font-semibold text-slate-700 border-b border-slate-200">
+              Asset Tag
+            </th>
+            <th class="p-3 font-semibold text-slate-700 border-b border-slate-200">
+              Type
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if equipments %} 
+            {% for equipment in equipments %}
+            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+              <td class="p-3 font-medium">{{equipment.asset_tag}}</td>
+              <td class="p-3 text-slate-600">{{equipment.equipment_type}}</td>
+            </tr>
+            {% endfor %} 
+          {% else %}
+            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+              <td colspan="2" class="p-8 text-center text-slate-500 italic">
+                This employee has no equipment assigned.
+              </td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

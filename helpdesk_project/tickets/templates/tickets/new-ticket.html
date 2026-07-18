@@ -11,14 +11,14 @@
         
         <div class="flex flex-col gap-2">
             <label for="{{ ticket_form.title.id_for_label }}" class="label">Title</label>
-            <input class="input" id="title-input" type="text" placeholder="Short summary of the issue..." name="title" id="title" value="{{ ticket_form.title.value|default:'' }}">
+            <input class="input bg-white" id="title-input" type="text" placeholder="Short summary of the issue..." name="title" id="title" value="{{ ticket_form.title.value|default:'' }}">
         </div>
 
         <div class="flex flex-col gap-2">
             <label for="{{ ticket_form.category.id_for_label }}" class="label">Category</label>
             
             <div id="select-category" class="select">
-                <button type="button" class="btn-outline w-full justify-between" id="category-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="category-listbox">
+                <button type="button" class="btn-outline border-slate-200 w-full justify-between" id="category-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="category-listbox">
                     <span class="truncate">Select category...</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-down text-muted-foreground opacity-50 shrink-0">
                         <path d="m7 15 5 5 5-5" />
@@ -50,7 +50,7 @@
 
         <div class="flex flex-col gap-2">
             <label for="{{ ticket_form.description.id_for_label }}" class="label">Description</label>
-            <textarea class="textarea" placeholder="Type your message here" name="description" id="desctiption" value="{{ ticket_form.description.value|default:'' }}"></textarea>
+            <textarea class="textarea bg-white" placeholder="Type your message here" name="description" id="desctiption" value="{{ ticket_form.description.value|default:'' }}"></textarea>
         </div>
 
         <div class="mt-2">

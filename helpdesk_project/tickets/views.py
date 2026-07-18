@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from .models import Ticket, TicketComment
+from .models import Ticket, TicketComment, Equipment, Employee
 from .forms import EmployeeForm, RegisterEquipmentForm, EquipmentForm, CategoryForm, TicketForm, TicketCommentForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -15,6 +15,10 @@ def dashboard(request):
     
     return render(request, "dashboard.html", {"tickets": tickets})
 
+def index(request):
+    return render(request, "index.html")
+
+@login_required
 def new_employee(request):
     if request.method == "POST":
         employee_form = EmployeeForm(request.POST)
@@ -27,6 +31,7 @@ def new_employee(request):
     
     return render(request, "tickets/new-employee.html", {"employee_form" : employee_form})
 
+@login_required
 def new_equipment(request):
     if request.method == "POST":
         equipment_form = EquipmentForm(request.POST)
@@ -39,6 +44,7 @@ def new_equipment(request):
     
     return render(request, "tickets/new-equipment.html", {"equipment_form" : equipment_form})
 
+@login_required
 def new_category(request):
     if request.method == "POST":
         category_form = CategoryForm(request.POST)
@@ -116,7 +122,7 @@ def add_comment(request, id):
         comment_form = TicketCommentForm(request.POST)
         
         if comment_form.is_valid():
-            print("DEBUG: Form is valid!") # Check your terminal for this!
+            print("DEBUG: Form is valid!")
             comment = comment_form.save(commit=False)
             
             comment.ticket = ticket
@@ -127,3 +133,19 @@ def add_comment(request, id):
             print(f"DEBUG: Form Errors: {comment_form.errors}")
             
     return redirect('ticket_details', id=ticket.id)
+
+@login_required
+def inventory(request):
+    equipments = Equipment.objects.all()
+    return render(request, 'inventory.html', {"equipments" : equipments})
+
+@login_required
+def employee_list(request):
+    employees = Employee.objects.all().filter(is_staff = False, is_superuser = False)
+    return render(request, 'employee-list.html', {"employees" : employees})
+
+@login_required
+def employee_details(request, id):
+    employee = get_object_or_404(Employee, pk=id)
+    equipments = Equipment.objects.all().filter(owner_id = id);
+    return render(request, 'employee-details.html', {"employee" : employee, "equipments" : equipments})
